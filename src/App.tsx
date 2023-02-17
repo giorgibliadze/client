@@ -9,6 +9,13 @@ import {
   ReadyPage,
   ErrorComponent,
 } from "@pankod/refine-mui";
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutlined,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from "@mui/icons-material";
 
 import dataProvider from "@pankod/refine-simple-rest";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
@@ -98,12 +105,25 @@ function App() {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "posts",
+              name: "property",
               list: MuiInferencer,
-              edit: MuiInferencer,
-              show: MuiInferencer,
-              create: MuiInferencer,
-              canDelete: true,
+            },
+            {
+              name: "agent",
+              list: MuiInferencer,
+            },
+            {
+              name: "review",
+              list: MuiInferencer,
+            },
+            {
+              name: "message",
+              list: MuiInferencer,
+            },
+            {
+              name: "my-profile",
+              list: MuiInferencer,
+              options: { label: "My Profile" },
             },
           ]}
           Title={Title}
