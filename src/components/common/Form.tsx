@@ -1,12 +1,11 @@
-import React from "react";
 import {
   Box,
   Typography,
-  Stack,
   FormControl,
   FormHelperText,
   TextField,
   TextareaAutosize,
+  Stack,
   Select,
   MenuItem,
   Button,
@@ -18,16 +17,18 @@ import CustomButton from "./CustomButton";
 const Form = ({
   type,
   register,
+  handleSubmit,
+  handleImageChange,
   formLoading,
   onFinishHandler,
   propertyImage,
-  handleSubmit,
 }: FormProps) => {
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
         {type} a Property
       </Typography>
+
       <Box mt={2.5} borderRadius="15px" padding="20px" bgcolor="#fcfcfc">
         <form
           style={{
@@ -42,10 +43,10 @@ const Form = ({
           <FormControl>
             <FormHelperText
               sx={{
-                formWeight: 500,
+                fontWeight: 500,
                 margin: "10px 0",
                 fontSize: 16,
-                color: "#1142d",
+                color: "#11142d",
               }}
             >
               Enter property name
@@ -62,10 +63,10 @@ const Form = ({
           <FormControl>
             <FormHelperText
               sx={{
-                formWeight: 500,
+                fontWeight: 500,
                 margin: "10px 0",
                 fontSize: 16,
-                color: "#1142d",
+                color: "#11142d",
               }}
             >
               Enter Description
@@ -79,7 +80,7 @@ const Form = ({
                 width: "100%",
                 background: "transparent",
                 fontSize: "16px",
-                borderColor: "rgba(0,0,0,0.23",
+                borderColor: "rgba(0,0,0,0.23)",
                 borderRadius: 6,
                 padding: 10,
                 color: "#919191",
@@ -87,6 +88,7 @@ const Form = ({
               {...register("description", { required: true })}
             />
           </FormControl>
+
           <Stack direction="row" gap={4}>
             <FormControl sx={{ flex: 1 }}>
               <FormHelperText
@@ -112,7 +114,7 @@ const Form = ({
               >
                 <MenuItem value="apartment">Apartment</MenuItem>
                 <MenuItem value="villa">Villa</MenuItem>
-                <MenuItem value="farmhouse">Farmhouse</MenuItem>
+                <MenuItem value="farmhouse">farmhouse</MenuItem>
                 <MenuItem value="condos">Condos</MenuItem>
                 <MenuItem value="townhouse">Townhouse</MenuItem>
                 <MenuItem value="duplex">Duplex</MenuItem>
@@ -123,10 +125,10 @@ const Form = ({
             <FormControl>
               <FormHelperText
                 sx={{
-                  formWeight: 500,
+                  fontWeight: 500,
                   margin: "10px 0",
                   fontSize: 16,
-                  color: "#1142d",
+                  color: "#11142d",
                 }}
               >
                 Enter property price
@@ -142,13 +144,14 @@ const Form = ({
               />
             </FormControl>
           </Stack>
+
           <FormControl>
             <FormHelperText
               sx={{
-                formWeight: 500,
+                fontWeight: 500,
                 margin: "10px 0",
                 fontSize: 16,
-                color: "#1142d",
+                color: "#11142d",
               }}
             >
               Enter Location
@@ -159,9 +162,10 @@ const Form = ({
               id="outlined-basic"
               color="info"
               variant="outlined"
-              {...register("Location", { required: true })}
+              {...register("location", { required: true })}
             />
           </FormControl>
+
           <Stack direction="column" gap={1} justifyContent="center" mb={2}>
             <Stack direction="row" gap={2}>
               <Typography
@@ -172,13 +176,14 @@ const Form = ({
               >
                 Property Photo
               </Typography>
+
               <Button
                 component="label"
                 sx={{
                   width: "fit-content",
                   color: "#2ed480",
                   textTransform: "capitalize",
-                  formSize: 16,
+                  fontSize: 16,
                 }}
               >
                 Upload *
@@ -186,9 +191,8 @@ const Form = ({
                   hidden
                   accept="image/*"
                   type="file"
-                  onChange={(e) => {
-                    //@ts-ignore
-                    handleImageChange(e.target.files[0]);
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleImageChange(e.target.files![0]);
                   }}
                 />
               </Button>
@@ -201,8 +205,9 @@ const Form = ({
               {propertyImage?.name}
             </Typography>
           </Stack>
+
           <CustomButton
-            type="Submit"
+            type="submit"
             title={formLoading ? "Submitting..." : "Submit"}
             backgroundColor="#475be8"
             color="#fcfcfc"
