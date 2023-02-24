@@ -11,18 +11,20 @@ import {
 } from "@pankod/refine-mui";
 import {
   AccountCircleOutlined,
-  ChatBubbleOutlined,
+  ChatBubbleOutline,
   PeopleAltOutlined,
   StarOutlineRounded,
   VillaOutlined,
 } from "@mui/icons-material";
 
 import dataProvider from "@pankod/refine-simple-rest";
-
 import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
-import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
+import { ColorModeContextProvider } from "contexts";
+import { CredentialResponse } from "interfaces/google";
+import { parseJwt } from "utils/parse-jwt";
+
 import {
   Login,
   Home,
@@ -34,8 +36,6 @@ import {
   AgentProfile,
   EditProperty,
 } from "pages";
-import { CredentialResponse } from "interfaces/google";
-import { parseJwt } from "utils/parse-jwt";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -56,7 +56,6 @@ function App() {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
 
-      //SAVE USER TO MONGODB
       if (profileObj) {
         const response = await fetch("http://localhost:8080/api/v1/users", {
           method: "POST",
@@ -67,6 +66,7 @@ function App() {
             avatar: profileObj.picture,
           }),
         });
+
         const data = await response.json();
 
         if (response.status === 200) {
@@ -152,12 +152,12 @@ function App() {
             {
               name: "messages",
               list: Home,
-              icon: <ChatBubbleOutlined />,
+              icon: <ChatBubbleOutline />,
             },
             {
               name: "my-profile",
+              options: { label: "My Profile " },
               list: MyProfile,
-              options: { label: "My Profile" },
               icon: <AccountCircleOutlined />,
             },
           ]}
